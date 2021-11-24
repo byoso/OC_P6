@@ -1,0 +1,153 @@
+{
+    "count": 1583,
+    "next": "http://localhost:8000/api/v1/titles/?genre=Western&page=2",
+    "previous": null,
+    "results": [
+        {
+            "id": 3657,
+            "url": "http://localhost:8000/api/v1/titles/3657",
+            "imdb_url": "https://www.imdb.com/title/tt0003657/",
+            "title": "The Bargain",
+            "year": 1914,
+            "imdb_score": "6.5",
+            "votes": 152,
+            "image_url": "https://m.media-amazon.com/images/M/MV5BNjc4NjU0ZDAtMzBiZi00…XkEyXkFqcGdeQXVyNjA5MTAzODY@._V1_UX182_CR0,0,182,268_AL_.jpg",
+            "directors": [
+                "Reginald Barker"
+            ],
+            "actors": [
+                "Clara Williams",
+                "J. Barney Sherry",
+                "J. Frank Burke",
+                "Joseph J. Dowling",
+                "William S. Hart"
+            ],
+            "writers": [
+                "Thomas H. Ince",
+                "William H. Clifford"
+            ],
+            "genres": [
+                "Western"
+            ]
+        },
+        {
+            "id": 4766,
+            "url": "http://localhost:8000/api/v1/titles/4766",
+            "imdb_url": "https://www.imdb.com/title/tt0004766/",
+            "title": "The Virginian",
+            "year": 1914,
+            "imdb_score": "5.6",
+            "votes": 173,
+            "image_url": "https://m.media-amazon.com/images/M/MV5BN2M2OTAyZGItNzIzYi00…XkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_UX182_CR0,0,182,268_AL_.jpg",
+            "directors": [
+                "Cecil B. DeMille"
+            ],
+            "actors": [
+                "Dustin Farnum",
+                "Horace B. Carpenter",
+                "Jack W. Johnston",
+                "James Griswold",
+                "Sydney Deane",
+                "Tex Driscoll",
+                "William Elmer",
+                "Winifred Kingston"
+            ],
+            "writers": [
+                "Kirk La Shelle",
+                "Owen Wister"
+            ],
+            "genres": [
+                "Western"
+            ]
+        },
+        {
+            "id": 6736,
+            "url": "http://localhost:8000/api/v1/titles/6736",
+            "imdb_url": "https://www.imdb.com/title/tt0006736/",
+            "title": "The Good Bad-Man",
+            "year": 1916,
+            "imdb_score": "6.5",
+            "votes": 171,
+            "image_url": "https://m.media-amazon.com/images/M/MV5BNjc0YWFmMmItN2EwMC00…XkEyXkFqcGdeQXVyNDY1NzU5NjY@._V1_UY268_CR2,0,182,268_AL_.jpg",
+            "directors": [
+                "Allan Dwan"
+            ],
+            "actors": [
+                "Bessie Love",
+                "Douglas Fairbanks",
+                "Fred Burns",
+                "George Beranger",
+                "Joseph Singleton",
+                "Mary Alden",
+                "Pomeroy Cannon",
+                "Sam De Grasse"
+            ],
+            "writers": [
+                "Douglas Fairbanks"
+            ],
+            "genres": [
+                "Romance",
+                "Western"
+            ]
+        },
+        {
+            "id": 6753,
+            "url": "http://localhost:8000/api/v1/titles/6753",
+            "imdb_url": "https://www.imdb.com/title/tt0006753/",
+            "title": "The Half-Breed",
+            "year": 1916,
+            "imdb_score": "6.5",
+            "votes": 146,
+            "image_url": "https://m.media-amazon.com/images/M/MV5BZDliNWExNzUtMGQyNi00…kEyXkFqcGdeQXVyMzYyNzgzMzI@._V1_UY268_CR46,0,182,268_AL_.jpg",
+            "directors": [
+                "Allan Dwan"
+            ],
+            "actors": [
+                "Alma Rubens",
+                "Douglas Fairbanks",
+                "Frank Brownlee",
+                "George Beranger",
+                "Jewel Carmen",
+                "Sam De Grasse",
+                "Tom Wilson"
+            ],
+            "writers": [
+                "Anita Loos",
+                "Bret Harte"
+            ],
+            "genres": [
+                "Western"
+            ]
+        },
+        {
+            "id": 6780,
+            "url": "http://localhost:8000/api/v1/titles/6780",
+            "imdb_url": "https://www.imdb.com/title/tt0006780/",
+            "title": "Hell's Hinges",
+            "year": 1916,
+            "imdb_score": "6.8",
+            "votes": 846,
+            "image_url": "https://m.media-amazon.com/images/M/MV5BYWU0MzcxMDgtYWQzOC00…XkEyXkFqcGdeQXVyMDUyOTUyNQ@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+            "directors": [
+                "Charles Swickard",
+                "William S. Hart"
+            ],
+            "actors": [
+                "Alfred Hollingsworth",
+                "Clara Williams",
+                "J. Frank Burke",
+                "Jack Standing",
+                "Louise Glaum",
+                "Robert McKim",
+                "William S. Hart"
+            ],
+            "writers": [
+                "C. Gardner Sullivan"
+            ],
+            "genres": [
+                "Romance",
+                "Western"
+            ]
+        }
+    ]
+}

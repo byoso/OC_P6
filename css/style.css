@@ -1,0 +1,9 @@
+.category {
+    display: flex;
+    flex-direction: row;
+}
+
+.film {
+    border: solid black 2px;
+    
+}

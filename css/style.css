@@ -1,4 +1,12 @@
 
+ul {
+    list-style-type: none;
+}
+
+button {
+    cursor: pointer;
+}
+
 #just {
     background-color: #aaaaaa;
     height: 200px;
@@ -19,6 +27,12 @@
     margin: 5px 5px 5px 5px;
     flex-direction: row;
 }
+
+.modal-film {
+    display: flex;
+    flex-direction: row;
+}
+
 
  /* The Modal (background) */
  .modal {
@@ -49,6 +63,11 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    background-color: rgb(209, 63, 63);
+    border: solid black 2px;
+    border-radius: 5px;
+    padding: 2px;
+
   }
   
   .close:hover,

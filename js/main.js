@@ -16,32 +16,6 @@ let sci_fis = getData(server_domain+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_s
 let comedies = getData(server_domain+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_comedy, 7)
 
 
-function builder(elems, space){
-    for(let elem of elems){
-        elem_id ++
-        console.log(elem);
-        let dom_elem = document.createElement("div");
-        dom_elem.className = "film"
-        dom_elem.innerHTML =
-        `
-        <button  id="filmid${elem_id}"><img src="${elem.image_url}" alt="cover"></button>
-
-                <!-- The Modal -->
-        <div id="modalid${elem_id}" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span id="close${elem_id}">&times;</span>
-            <h2>${elem.title}</h2>
-        </div>
-        </div>
-        
-        `
-        ;
-        space.appendChild(dom_elem);
-        modalSetting(elem, elem_id)
-    }
-};
-
 function getData(url, space, nbre) {
     let elems = []
     fetch(url)
@@ -76,15 +50,63 @@ function getData(url, space, nbre) {
 };
 
 
+function builder(elems, space){
+    for(let elem of elems){
+        elem_id ++
+        console.log(elem);
+        let dom_elem = document.createElement("div");
+        dom_elem.className = "film"
+        dom_elem.innerHTML =
+        `
+        <button  id="filmId${elem_id}"><img src="${elem.image_url}" alt="cover"></button>
+
+                <!-- The Modal -->
+        <div id="modalId${elem_id}" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span id="closeId${elem_id}" class="close">&times;</span>
+            <div class="modal-film">
+                <div class="modal-left">
+                    <h2>${elem.title}</h2>
+                    <img src="${elem.image_url}" alt="cover">
+                </div>
+                <div class="modal-right">
+                    <ul>
+                        <li>Genre : ${elem.genres}</li>
+                        <li>Date de sortie : ${elem.year}</li>
+                        <li>Rated : ${elem.votes}***</li>
+                        <li>Score Imdb : ${elem.imdb_score}</li>
+                        <li>Réalisateur(s) : ${elem.directors}</li>
+                        <li>Acteurs : ${elem.actors}</li>
+                        <li>Durée : ***</li>
+                        <li>Pays d'origine : ***</li>
+                        <li>Résultat au box office : ***</li>
+                        <li>
+                            <p>Résumé </p>
+                            <p>${elem.description}***</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        `
+        ;
+        space.appendChild(dom_elem);
+        modalSetting(elem, elem_id)
+    }
+};
+
 function modalSetting(elem, elem_id){
     // Get the modal
-    var modal = document.getElementById(`modalid${elem_id}`);
+    var modal = document.getElementById(`modalId${elem_id}`);
     
     // Get the button that opens the modal
-    var btn = document.getElementById(`filmid${elem_id}`);
+    var btn = document.getElementById(`filmId${elem_id}`);
     
     // Get the <span> element that closes the modal
-    var span = document.getElementById(`close${elem_id}`);
+    var span = document.getElementById(`closeId${elem_id}`);
     
     // When the user clicks on the button, open the modal
     btn.onclick = function() {

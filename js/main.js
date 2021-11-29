@@ -1,4 +1,5 @@
 let server_domain = "http://localhost:8000/"
+let elem_id = 0
 
 const space_best = document.getElementById("space_best");
 const space_bests = document.getElementById("space_bests");
@@ -17,13 +18,27 @@ let comedies = getData(server_domain+"api/v1/titles/?genre=Comedy&sort_by=-imdb_
 
 function builder(elems, space){
     for(let elem of elems){
+        elem_id ++
         console.log(elem);
         let dom_elem = document.createElement("div");
         dom_elem.className = "film"
         dom_elem.innerHTML =
-        `<h3>${elem.title}</h3> - ${elem.imdb_score}`
+        `
+        <button  id="filmid${elem_id}"><img src="${elem.image_url}" alt="cover"></button>
+
+                <!-- The Modal -->
+        <div id="modalid${elem_id}" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span id="close${elem_id}">&times;</span>
+            <h2>${elem.title}</h2>
+        </div>
+        </div>
+        
+        `
         ;
         space.appendChild(dom_elem);
+        modalSetting(elem, elem_id)
     }
 };
 
@@ -60,3 +75,32 @@ function getData(url, space, nbre) {
     })
 };
 
+
+function modalSetting(elem, elem_id){
+    // Get the modal
+    var modal = document.getElementById(`modalid${elem_id}`);
+    
+    // Get the button that opens the modal
+    var btn = document.getElementById(`filmid${elem_id}`);
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementById(`close${elem_id}`);
+    
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    } 
+
+}

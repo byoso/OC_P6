@@ -74,72 +74,13 @@ function builder(elems, space){
         `
         <img src="${elem.image_url}" alt="cover">
 
-                <!-- The Modal -->
-        <div id="modalId${elem_id}" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span id="closeId${elem_id}" class="close">&times;</span>
-            <div class="modal-film">
-                <div class="modal-left">
-                    <h2>${elem.title}</h2>
-                    <img src="${elem.image_url}" alt="cover">
-                </div>
-                <div class="modal-right">
-                    <ul>
-                        <li>Genre : ${elem.genres}</li>
-                        <li>Date de sortie : ${elem.year}</li>
-                        <li>Rated : ${elem.votes}***</li>
-                        <li>Score Imdb : ${elem.imdb_score}</li>
-                        <li>Réalisateur(s) : ${elem.directors}</li>
-                        <li>Acteurs : ${elem.actors}</li>
-                        <li>Durée : ***</li>
-                        <li>Pays d'origine : ***</li>
-                        <li>Résultat au box office : ***</li>
-                        <li>
-                            <p>Résumé </p>
-                            <p>${elem.description}***</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        </div>
-        
         `
         ;
         space.appendChild(dom_elem);
         pageLoaded()
-        // modalSetting(elem, elem_id)
     }
 };
 
-function modalSetting(elem, elem_id){
-    // Get the modal
-    var modal = document.getElementById(`modalId${elem_id}`);
-    // Get the button that opens the modal
-    var btn = document.getElementById(`filmId${elem_id}`);
-    // Get the <span> element that closes the modal
-    var span = document.getElementById(`closeId${elem_id}`);
-    // When the user clicks on the button, open the modal
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-};
-
-
-function modalBuilder(film_id){
-    console.log("build modal for ", film_id)
-}
 
 function pageLoaded(){
     if (films_elems.length < total_elems){
@@ -152,4 +93,70 @@ function pageLoaded(){
             }
         }
     }
+}
+
+
+function modalBuilder(film_id){
+    console.log("build modal for ", film_id);
+    fetch(server_domain+"api/v1/titles/"+film_id)
+    .then(function(response) {
+        console.log(`response : ${response}`);
+        return response;
+    })
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(json){
+        let elem = json;
+        console.log(elem)
+        let dom_modal = document.getElementById("modalWindow")
+        dom_modal.style.display = "block";
+
+        modalSetting(elem)
+    })
+};
+
+
+function modalSetting(elem){
+    // Get the modal
+    var modal = document.getElementById("modalWindow");
+    // Get the button that opens the modal
+    // var btn = document.getElementById(`filmId${elem_id}`);
+    // Get the <span> element that closes the modal
+    var span = document.getElementById("closeModal");
+    console.log(span)
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    var modal_left = document.getElementById("modalLeft")
+    var modal_right = document.getElementById("modalRight")
+
+    modal_left.innerHTML = `
+    <h2>${elem.original_title}</h2>
+    <img src="${elem.image_url}" alt="cover">
+    `
+    modal_right.innerHTML = `
+    <ul>
+        <li>Genre : ${elem.genres}</li>
+        <li>Date de sortie : ${elem.date_published}</li>
+        <li>Catégorie de public : ${elem.rated}</li>
+        <li>Score imdb : ${elem.imdb_score}</li>
+        <li>Réalisateur(s) : ${elem.directors}</li>
+        <li>Acteur(s) : ${elem.actors}</li>
+        <li>Durée : ${elem.duration} minutes</li>
+        <li>Pays d'origine : ${elem.countries}</li>
+        <li>Résultat au box office : ${elem.worldwide_gross_income} $</li>
+        <br>
+        <li>Résumé :</li>
+        <li>${elem.long_description}</li>
+    </ul>
+    `
+
 };

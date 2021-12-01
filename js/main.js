@@ -161,4 +161,14 @@ function modalSetting(elem){
 
 // carousels
 
+function slideRight(id){
+    var space = document.getElementById(id)
+    space.classList.remove("left")
+    space.classList.add("right");
+}
 
+function slideLeft(id){
+    var space = document.getElementById(id)
+    space.classList.remove("right")
+    space.classList.add("left");
+}

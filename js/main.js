@@ -1,3 +1,4 @@
+
 let server_domain = "http://localhost:8000/"
 let elem_id = 0
 let films_elems = []
@@ -11,13 +12,11 @@ let total_elems = best_num+bests_num+western_num+sci_fi_num+comedy_num
 console.log('total elems : ', total_elems)
 
 
-
 const space_best = document.getElementById("space_best");
 const space_bests = document.getElementById("space_bests");
 const space_comedy = document.getElementById("space_comedy");
 const space_western = document.getElementById("space_western");
 const space_sci_fi = document.getElementById("space_sci_fi");
-console.log("space best : "+space_bests)
 
 
 let best = getData(server_domain+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num)
@@ -31,7 +30,7 @@ function getData(url, space, nbre) {
     let elems = []
     fetch(url)
     .then(function(response) {
-        console.log(`response : ${response}`);
+        // console.log(`response : ${response}`);
         return response;
     })
     .then(function(response){
@@ -40,9 +39,9 @@ function getData(url, space, nbre) {
     .then(function(json){
         let data = json
         let next = data.next
-        console.log(next)
+        // console.log(next)
         elems = data.results
-        console.log(elems)
+        // console.log(elems)
         if (next){
             fetch(next)
             .then(function(response){
@@ -64,15 +63,16 @@ function getData(url, space, nbre) {
 function builder(elems, space){
     for(let elem of elems){
         elem_id ++
-        console.log(elem);
-        let dom_elem = document.createElement("button");
+        // console.log(elem);
+        let dom_elem = document.createElement("div");
         dom_elem.id = `filmId${elem_id}`
         films_elems.push(elem.id)
         dom_elems.push(dom_elem)
         dom_elem.className = "film"
-        dom_elem.innerHTML =
-        `
-        <img src="${elem.image_url}" alt="cover">
+        dom_elem.innerHTML = `
+        <button>
+            <img src="${elem.image_url}" alt="cover">
+        </button>
 
         `
         ;
@@ -84,9 +84,9 @@ function builder(elems, space){
 
 function pageLoaded(){
     if (films_elems.length < total_elems){
-        console.log("loading...")
+        // console.log("loading...")
     }else {
-        console.log("loaded")
+        // console.log("loaded")
         for(let i=0; films_elems[i];i++){
             dom_elems[i].onclick = function(){
                 modalBuilder(films_elems[i])
@@ -100,7 +100,7 @@ function modalBuilder(film_id){
     console.log("build modal for ", film_id);
     fetch(server_domain+"api/v1/titles/"+film_id)
     .then(function(response) {
-        console.log(`response : ${response}`);
+        // console.log(`response : ${response}`);
         return response;
     })
     .then(function(response){
@@ -108,7 +108,7 @@ function modalBuilder(film_id){
     })
     .then(function(json){
         let elem = json;
-        console.log(elem)
+        // console.log(elem)
         let dom_modal = document.getElementById("modalWindow")
         dom_modal.style.display = "block";
 
@@ -124,7 +124,6 @@ function modalSetting(elem){
     // var btn = document.getElementById(`filmId${elem_id}`);
     // Get the <span> element that closes the modal
     var span = document.getElementById("closeModal");
-    console.log(span)
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
       modal.style.display = "none";
@@ -158,5 +157,8 @@ function modalSetting(elem){
         <li>${elem.long_description}</li>
     </ul>
     `
-
 };
+
+// carousels
+
+

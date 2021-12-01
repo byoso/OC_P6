@@ -1,3 +1,5 @@
+@import "carousel.css";
+
 
 ul {
     list-style-type: none;
@@ -13,7 +15,7 @@ button {
 }
 
 #title {
-    vertical-align: middle;
+    padding: 20px 20px 20px 20px;
 }
 
 .category {
@@ -28,11 +30,11 @@ button {
     flex-direction: row;
 }
 
+
 .modal-film {
     display: flex;
     flex-direction: row;
 }
-
 
  /* The Modal (background) */
  .modal {

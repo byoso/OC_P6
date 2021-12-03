@@ -5,8 +5,6 @@ let bests_num = 7
 let western_num = 7
 let sci_fi_num = 7
 let comedy_num = 7
-let total_elems = best_num+bests_num+western_num+sci_fi_num+comedy_num
-console.log('total elems : ', total_elems)
 
 
 const space_best = document.getElementById("space_best");
@@ -104,6 +102,7 @@ function clickModal(dom_elem, id){
 
 
 function modalBuilder(film_id){
+    // rebuild the modal for the requested film
     console.log("build modal for ", film_id);
     fetch(domain_name+"api/v1/titles/"+film_id)
     .then(function(response) {

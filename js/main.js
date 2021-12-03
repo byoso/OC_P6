@@ -26,7 +26,6 @@ let sci_fis = getData(domain_name+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_sco
 let comedies = getData(domain_name+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_comedy, comedy_num)
 
 
-
 function getData(url, space, nbre, first=false) {
     let elems = []
     fetch(url)
@@ -79,7 +78,7 @@ function builder(elems, space){
         `
         ;
         space.appendChild(dom_elem);
-        pageLoaded()
+        clickModal(dom_elem, elem.id)
     }
 };
 
@@ -103,23 +102,19 @@ function buildFirst(elems, space){
         `
         ;
         space.appendChild(dom_elem);
-        pageLoaded()
     }
 }
 
 
-function pageLoaded(){
-    if (films_elems.length < total_elems){
-        // console.log("loading...")
-    }else {
-        // Chaque element devient clikable sauf le premier (meilleur film)
-        for(let i=1; films_elems[i];i++){
-            dom_elems[i].onclick = function(){
-                modalBuilder(films_elems[i])
-            }
+function clickModal(dom_elem, id){
+    // Chaque element devient clikable sauf le premier (meilleur film)
+    // for(let i=1; films_elems[i];i++){
+        console.log("clickModal - clickable")
+        dom_elem.onclick = function(){
+            modalBuilder(id)
         }
-    }
-}
+    // }
+};
 
 
 function modalBuilder(film_id){

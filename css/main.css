@@ -21,20 +21,38 @@ button {
 #title {
     font-size: 1.5em;
 }
+
+
 .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: #586081;
     color: rgb(238, 238, 238);
-    height: 200px;
+    height: 150px;
+    width:calc(216px*4);
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.best {
+.best_film {
     display: flex;
     flex-direction: row;
-    width:800px;
+    width:calc(216px*4);
     border: solid black 4px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.best_box {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.best_image {
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .play {
@@ -51,7 +69,7 @@ button {
     color: rgb(238, 238, 238);
     font-size: 2em;
     font-weight: bold;
-    line-height: 200px;
+    line-height: 150px;
     margin: 0 20px 0 20px;
 }
 

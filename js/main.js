@@ -79,12 +79,15 @@ function buildFirst(elems, space){
         let dom_elem = document.createElement("div");
         dom_elem.classList.add('best')
         dom_elem.innerHTML = `
-        <div>
-            <h2>${elem.title}</h2>
-            <button class="play">Play</button>
+        <div  class="best_film">
+            <div class="best_box">
+                <h2>${elem.title}</h2>
+                <button class="play">Play</button>
+            </div>
+            <div class="best_box">
+                <img class="best_image" src="${elem.image_url}" alt="cover">
+            </div>
         </div>
-        <img src="${elem.image_url}" alt="cover">
-
         `
         ;
         space.appendChild(dom_elem);

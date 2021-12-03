@@ -1,8 +1,5 @@
 
 let domain_name = "http://localhost:8000/"
-let elem_id = 0
-let films_elems = []
-let dom_elems = []
 let best_num = 1
 let bests_num = 7
 let western_num = 7
@@ -63,12 +60,7 @@ function getData(url, space, nbre, first=false) {
 
 function builder(elems, space){
     for(let elem of elems){
-        elem_id ++
-        // console.log(elem);
         let dom_elem = document.createElement("div");
-        dom_elem.id = `filmId${elem_id}`
-        films_elems.push(elem.id)
-        dom_elems.push(dom_elem)
         dom_elem.className = "film"
         dom_elem.innerHTML = `
         <button>
@@ -85,13 +77,9 @@ function builder(elems, space){
 function buildFirst(elems, space){
     console.log("build the best")
     for(let elem of elems){
-        elem_id ++
         console.log(elem);
         let dom_elem = document.createElement("div");
         dom_elem.classList.add('best')
-        dom_elem.id = `filmId${elem_id}`
-        films_elems.push(elem.id)
-        dom_elems.push(dom_elem)
         dom_elem.innerHTML = `
         <div>
             <h2>${elem.title}</h2>
@@ -107,13 +95,11 @@ function buildFirst(elems, space){
 
 
 function clickModal(dom_elem, id){
-    // Chaque element devient clikable sauf le premier (meilleur film)
-    // for(let i=1; films_elems[i];i++){
-        console.log("clickModal - clickable")
-        dom_elem.onclick = function(){
-            modalBuilder(id)
-        }
-    // }
+    // the dom element calls the modal on click
+    console.log("clickModal - clickable")
+    dom_elem.onclick = function(){
+        modalBuilder(id)
+    }
 };
 
 
@@ -121,7 +107,6 @@ function modalBuilder(film_id){
     console.log("build modal for ", film_id);
     fetch(domain_name+"api/v1/titles/"+film_id)
     .then(function(response) {
-        // console.log(`response : ${response}`);
         return response;
     })
     .then(function(response){
@@ -129,7 +114,6 @@ function modalBuilder(film_id){
     })
     .then(function(json){
         let elem = json;
-        // console.log(elem)
         let dom_modal = document.getElementById("modalWindow")
         dom_modal.style.display = "block";
 

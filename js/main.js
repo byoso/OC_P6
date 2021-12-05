@@ -5,7 +5,8 @@ let bests_num = 7
 let western_num = 7
 let sci_fi_num = 7
 let comedy_num = 7
-
+let margins = {}
+let sizes = {}
 
 const space_best = document.getElementById("space_best");
 const space_cat01 = document.getElementById("space_cat01");
@@ -14,19 +15,55 @@ const space_cat03 = document.getElementById("space_cat03");
 const space_cat04 = document.getElementById("space_cat04");
 
 
-let best = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num, true)
-let bests = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_cat01, bests_num)
-let westerns = buildCategory(domain_name+"api/v1/titles/?genre=Western&sort_by=-imdb_score", space_cat03, western_num)
-let sci_fis = buildCategory(domain_name+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score", space_cat04, sci_fi_num)
-let comedies = buildCategory(domain_name+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_cat02, comedy_num)
+// let best = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num, true)
+// let bests = buildCategory("api/v1/titles/?sort_by=-imdb_score", "Films les mieux notés", "bests", 7)
+
+categories = [
+    // ["api/v1/titles/?sort_by=-imdb_score", "Films les mieux notés", "bests", 7],
+    bests = {
+        "uri": "api/v1/titles/?sort_by=-imdb_score",
+        "title":  "Films les mieux notés",
+        "space_name": "bests",
+        "nbre": 7,
+        "first": false
+    }
+]
+
+for (cat of categories){
+    buildCategory(cat.uri, cat.title, cat.space_name, cat.nbre, cat.first)
+}
 
 
-function buildCategory(url, space, nbre, first=false) {
+function buildCategory(uri, title, space_name, nbre, first=false) {
     let elems = []
-    getData(url, space, nbre, first, elems)
+    let new_cat = document.createElement("div");
+    new_cat.innerHTML = `    
+    <h1 class="cat-title">${title}</h1>
+    <div class="category">
+        <div>
+            <button class="slide-button slide-button--left" onclick="slideLeft('${space_name}')"><</button>
+        </div>
+        <div class="slider">
+            <div id="${space_name}" class="category">
+        </div>
+
+        </div>
+        <div>
+            <button class="slide-button slide-button--right" onclick="slideRight('${space_name}')">></button>
+        </div>
+
+    </div>
+    
+    `
+    margins[space_name] = 0
+    sizes[space_name] = nbre
+    let categories = document.getElementById("categories")
+    categories.appendChild(new_cat)
+    let url = domain_name + uri;
+    getData(url, space_name, nbre, first, elems)
 };
 
-function getData(url, space, nbre, first, elems){
+function getData(url, space_name, nbre, first, elems){
     fetch(url)
     .then(function(response) {
         return response.json();
@@ -36,25 +73,25 @@ function getData(url, space, nbre, first, elems){
         let next = data.next
         elems = [].concat(elems, data.results);
         if ((next) && (elems.length < nbre)){
-            getData(next, space, nbre, first, elems)
+            getData(next, space_name, nbre, first, elems)
         }else {
-            buildSpace(url, space, nbre, first, elems)
+            buildSpace(url, space_name, nbre, first, elems)
         }
             
     }
 )};
 
-function buildSpace(url, space, nbre, first, elems){
+function buildSpace(url, space_name, nbre, first, elems){
     elems = elems.slice(0,nbre)
     if (first){
-        buildFirst(elems, space)
+        buildFirst(elems, space_name)
     }else{
-        builder(elems, space)
+        builder(elems, space_name)
     }
 };
 
 
-function builder(elems, space){
+function builder(elems, space_name){
     for(let elem of elems){
         let dom_elem = document.createElement("div");
         dom_elem.className = "film"
@@ -65,6 +102,7 @@ function builder(elems, space){
 
         `
         ;
+        var space = document.getElementById(space_name)
         space.appendChild(dom_elem);
         clickModal(dom_elem, elem.id)
     }
@@ -161,22 +199,8 @@ function modalSetting(elem){
 };
 
 
-// carousels
-let margins = {
-    "space_cat01": 0,
-    "space_cat02": 0,
-    "space_cat03": 0,
-    "space_cat04": 0,
-}
-
-let sizes = {
-    "space_cat01": bests_num,
-    "space_cat02": comedy_num,
-    "space_cat03": western_num,
-    "space_cat04": sci_fi_num,
-}
-
 function slideRight(id){
+    console.log("click right ",id)
     var space = document.getElementById(id)
     if (margins[id] > -216*(sizes[id]-4)){
         margins[id] -= 216*4;

@@ -14,45 +14,43 @@ const space_western = document.getElementById("space_western");
 const space_sci_fi = document.getElementById("space_sci_fi");
 
 
-let best = getData(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num, true)
-let bests = getData(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_bests, bests_num)
-let westerns = getData(domain_name+"api/v1/titles/?genre=Western&sort_by=-imdb_score", space_western, western_num)
-let sci_fis = getData(domain_name+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score", space_sci_fi, sci_fi_num)
-let comedies = getData(domain_name+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_comedy, comedy_num)
+let best = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num, true)
+let bests = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_bests, bests_num)
+let westerns = buildCategory(domain_name+"api/v1/titles/?genre=Western&sort_by=-imdb_score", space_western, western_num)
+let sci_fis = buildCategory(domain_name+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score", space_sci_fi, sci_fi_num)
+let comedies = buildCategory(domain_name+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_comedy, comedy_num)
 
 
-function getData(url, space, nbre, first=false) {
+function buildCategory(url, space, nbre, first=false) {
     let elems = []
+    getData(url, space, nbre, first, elems)
+};
+
+function getData(url, space, nbre, first, elems){
     fetch(url)
     .then(function(response) {
-        // console.log(`response : ${response}`);
         return response.json();
     })
     .then(function(json){
         let data = json
         let next = data.next
-        // console.log(next)
-        elems = data.results
-        // console.log(elems)
-        if (next){
-            fetch(next)
-            .then(function(response){
-                return response.json()
-            })
-            .then(function(json){
-                elems = [].concat(elems, json.results)
-                elems = elems.slice(0,nbre)
-                return elems
-            })
-            .then(function(elems){
-                if (first){
-                    buildFirst(elems, space)
-                }else{
-                    builder(elems, space)
-                }
-            })
-        };
-    })
+        elems = [].concat(elems, data.results);
+        if ((next) && (elems.length < nbre)){
+            getData(next, space, nbre, first, elems)
+        }else {
+            buildSpace(url, space, nbre, first, elems)
+        }
+            
+    }
+)};
+
+function buildSpace(url, space, nbre, first, elems){
+    elems = elems.slice(0,nbre)
+    if (first){
+        buildFirst(elems, space)
+    }else{
+        builder(elems, space)
+    }
 };
 
 
@@ -73,9 +71,7 @@ function builder(elems, space){
 };
 
 function buildFirst(elems, space){
-    console.log("build the best")
     for(let elem of elems){
-        console.log(elem);
         let dom_elem = document.createElement("div");
         dom_elem.classList.add('best')
         dom_elem.innerHTML = `
@@ -182,7 +178,7 @@ let sizes = {
 
 function slideRight(id){
     var space = document.getElementById(id)
-    if (margins[id] >= -216*(sizes[id]-4)){
+    if (margins[id] > -216*(sizes[id]-4)){
         margins[id] -= 216*4;
         space.style.marginLeft = `${margins[id]}px`
         space.classList.remove("left");

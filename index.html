@@ -12,103 +12,33 @@
 
 
 <body>
-    <header class="header">
-        <div id="title">
-            <a class="nav-btn" href="#">JustStreamIt</a>
-        </div>
-        <div><a class="nav-btn" href="#">Accueil</a></div>
-        <div><a class="nav-btn" href="#">Categories</a></div>
+    <header>
+        <nav class="header">
+            <div id="title">
+                <a class="nav-btn" href="#">JustStreamIt</a>
+            </div>
+            <div><a class="nav-btn" href="#">Accueil</a></div>
+            <div><a class="nav-btn" href="#">Categories</a></div>
+
+        </nav>
     </header>
 
     <div id="categories">
-
-        <h1 class="cat-title">Le Meilleur</h1>
-        <div id="space_best"></div>
-    
-    
-        <h1 class="cat-title">Films les mieux notés</h1>
-        <div class="category">
-            <div>
-                <button class="slide-button slide-button--left" onclick="slideLeft('space_cat01')"><</button>
-            </div>
-            <div class="slider">
-                <div id="space_cat01" class="category">
-            </div>
-    
-            </div>
-            <div>
-                <button class="slide-button slide-button--right" onclick="slideRight('space_cat01')">></button>
-            </div>
-    
-        </div>
-    
-        <h1 class="cat-title">Comedies</h1>
-        <div class="category">
-            <div>
-                <button class="slide-button slide-button--left" onclick="slideLeft('space_cat02')"><</button>
-            </div>
-            <div class="slider">
-                <div id="space_cat02" class="category">
-            </div>
-            </div>
-            <div>
-                <button class="slide-button slide-button--right" onclick="slideRight('space_cat02')">></button>
-            </div>
-    
-        </div>
-    
-        <h1 class="cat-title">Westerns</h1>
-        <div  class="category">
-            <div>
-                <button class="slide-button slide-button--left" onclick="slideLeft('space_cat03')"><</button>
-            </div>
-            <div class="slider">
-                <div id="space_cat03" class="category">
-            </div>
-                
-            </div>
-            <div>
-                <button class="slide-button slide-button--right"  onclick="slideRight('space_cat03')">></button>
-            </div>
-    
-        </div>
-    
-        <h1 class="cat-title">Sci-fi</h1>
-        <div class="category">
-            <div>
-                <button class="slide-button slide-button--left" onclick="slideLeft('space_cat04')"><</button>
-            </div>
-            <div class="slider">
-                <div id="space_cat04"  class="category slides-right"></div>
-            </div>
-            <div>
-                <button class="slide-button slide-button--right" onclick="slideRight('space_cat04')">></button>
-            </div>
-        </div>
-    
-
-
+        <!-- here will be built the page -->
     </div>
 
+
     <div id="modalWindow" class="modal">
-        
-        <!-- Modal content -->
         <div class="modal-content">
           <span class="close" id="closeModal">&times;</span>
           <div class="modal-film">
             <div id="modalLeft">
-  
             </div>
-            <div id="modalRight">
-  
-            </div>
-
+            <article id="modalRight">
+            </article>
           </div>
         </div>
-      
-      </div>
-
-
+    </div>
 
 </body>
 

@@ -1,70 +1,106 @@
 
+// Initialize some variables
 let domain_name = "http://localhost:8000/"
-let best_num = 1
-let bests_num = 7
-let western_num = 7
-let sci_fi_num = 7
-let comedy_num = 7
 let margins = {}
 let sizes = {}
 
-const space_best = document.getElementById("space_best");
-const space_cat01 = document.getElementById("space_cat01");
-const space_cat02 = document.getElementById("space_cat02");
-const space_cat03 = document.getElementById("space_cat03");
-const space_cat04 = document.getElementById("space_cat04");
-
-
-// let best = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num, true)
-// let bests = buildCategory("api/v1/titles/?sort_by=-imdb_score", "Films les mieux notés", "bests", 7)
-
+// all you need is to define some categories
 categories = [
-    // ["api/v1/titles/?sort_by=-imdb_score", "Films les mieux notés", "bests", 7],
+    the_only_best = {
+        "uri": "api/v1/titles/?sort_by=-imdb_score",
+        "title":  "Le meilleur film",
+        "space_name": "space_best",
+        "nbre": 1,
+        "honnor": true
+    },
     bests = {
         "uri": "api/v1/titles/?sort_by=-imdb_score",
         "title":  "Films les mieux notés",
-        "space_name": "bests",
+        "space_name": "space_bests",
         "nbre": 7,
-        "first": false
+        "honnor": false
+    },
+    westerns = {
+        "uri": "api/v1/titles/?genre=Western&sort_by=-imdb_score",
+        "title":  "Westerns",
+        "space_name": "space_westerns",
+        "nbre": 7,
+        "honnor": false
+    },
+    // sci_fi_best = {
+    //     "uri": "api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score",
+    //     "title":  "Best of Sci-Fi",
+    //     "space_name": "space_best_sci_fi",
+    //     "nbre": 1,
+    //     "honnor": true
+    // },
+    sci_fis = {
+        "uri": "api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score",
+        "title":  "Sci-Fi",
+        "space_name": "space_sci_fi",
+        "nbre": 7,
+        "honnor": false
+    },
+    // comedies = {
+    //     "uri": "api/v1/titles/?genre=Comedy&sort_by=-imdb_score",
+    //     "title":  "Comedies",
+    //     "space_name": "space_comedies",
+    //     "nbre": 7,
+    //     "honnor": false
+    // },
+    action = {
+        "uri": "api/v1/titles/?genre=Action&sort_by=-imdb_score",
+        "title":  "Action",
+        "space_name": "space_action",
+        "nbre": 7,
+        "honnor": false
     },
     
 ]
 
+// build the html page
 for (cat of categories){
-    buildCategory(cat.uri, cat.title, cat.space_name, cat.nbre, cat.first)
+    buildCategory(cat.uri, cat.title, cat.space_name, cat.nbre, cat.honnor)
 }
 
 
-function buildCategory(uri, title, space_name, nbre, first=false) {
+function buildCategory(uri, title, space_name, nbre, honnor=false) {
     let elems = []
     let new_cat = document.createElement("div");
-    new_cat.innerHTML = `    
-    <h1 class="cat-title">${title}</h1>
-    <div class="category">
-        <div>
-            <button class="slide-button slide-button--left" onclick="slideLeft('${space_name}')"><</button>
-        </div>
-        <div class="slider">
-            <div id="${space_name}" class="category">
-        </div>
-
-        </div>
-        <div>
-            <button class="slide-button slide-button--right" onclick="slideRight('${space_name}')">></button>
-        </div>
-
-    </div>
+    if (honnor){
+        new_cat.innerHTML = `
+        <h1 class="cat-title">${title}</h1>
+        <div id="${space_name}"></div>
+        `
+    }else {
+        new_cat.innerHTML = `    
+        <h1 class="cat-title">${title}</h1>
+        <div class="category">
+            <div>
+                <button class="slide-button slide-button--left" onclick="slideLeft('${space_name}')"><</button>
+            </div>
+            <div class="slider">
+                <div id="${space_name}" class="category">
+            </div>
     
-    `
+            </div>
+            <div>
+                <button class="slide-button slide-button--right" onclick="slideRight('${space_name}')">></button>
+            </div>
+    
+        </div>
+        
+        `
+    }
     margins[space_name] = 0
     sizes[space_name] = nbre
     let categories = document.getElementById("categories")
     categories.appendChild(new_cat)
     let url = domain_name + uri;
-    getData(url, space_name, nbre, first, elems)
+    getData(url, space_name, nbre, honnor, elems)
 };
 
-function getData(url, space_name, nbre, first, elems){
+function getData(url, space_name, nbre, honnor, elems){
     fetch(url)
     .then(function(response) {
         return response.json();
@@ -74,18 +110,18 @@ function getData(url, space_name, nbre, first, elems){
         let next = data.next
         elems = [].concat(elems, data.results);
         if ((next) && (elems.length < nbre)){
-            getData(next, space_name, nbre, first, elems)
+            getData(next, space_name, nbre, honnor, elems)
         }else {
-            buildSpace(url, space_name, nbre, first, elems)
+            buildSpace(space_name, nbre, honnor, elems)
         }
             
     }
 )};
 
-function buildSpace(url, space_name, nbre, first, elems){
+function buildSpace(space_name, nbre, honnor, elems){
     elems = elems.slice(0,nbre)
-    if (first){
-        buildFirst(elems, space_name)
+    if (honnor){
+        buildHonnor(elems, space_name)
     }else{
         builder(elems, space_name)
     }
@@ -109,9 +145,9 @@ function builder(elems, space_name){
     }
 };
 
-function buildFirst(elems, space){
+function buildHonnor(elems, space_name){
     for(let elem of elems){
-        let dom_elem = document.createElement("div");
+        let dom_elem = document.getElementById(space_name);
         dom_elem.classList.add('best')
         dom_elem.innerHTML = `
         <div  class="best_film">
@@ -125,14 +161,12 @@ function buildFirst(elems, space){
         </div>
         `
         ;
-        space.appendChild(dom_elem);
     }
 }
 
 
 function clickModal(dom_elem, id){
     // the dom element calls the modal on click
-    console.log("clickModal - clickable")
     dom_elem.onclick = function(){
         modalBuilder(id)
     }
@@ -141,7 +175,6 @@ function clickModal(dom_elem, id){
 
 function modalBuilder(film_id){
     // rebuild the modal for the requested film
-    console.log("build modal for ", film_id);
     fetch(domain_name+"api/v1/titles/"+film_id)
     .then(function(response) {
         return response;
@@ -153,7 +186,6 @@ function modalBuilder(film_id){
         let elem = json;
         let dom_modal = document.getElementById("modalWindow")
         dom_modal.style.display = "block";
-
         modalSetting(elem)
     })
 };
@@ -166,13 +198,13 @@ function modalSetting(elem){
     var span = document.getElementById("closeModal");
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-      modal.style.display = "none";
+        modal.style.display = "none";
     }
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
     var modal_left = document.getElementById("modalLeft")
     var modal_right = document.getElementById("modalRight")
@@ -201,7 +233,6 @@ function modalSetting(elem){
 
 
 function slideRight(id){
-    console.log("click right ",id)
     var space = document.getElementById(id)
     if (margins[id] > -216*(sizes[id]-4)){
         margins[id] -= 216*4;

@@ -8,17 +8,17 @@ let comedy_num = 7
 
 
 const space_best = document.getElementById("space_best");
-const space_bests = document.getElementById("space_bests");
-const space_comedy = document.getElementById("space_comedy");
-const space_western = document.getElementById("space_western");
-const space_sci_fi = document.getElementById("space_sci_fi");
+const space_cat01 = document.getElementById("space_cat01");
+const space_cat02 = document.getElementById("space_cat02");
+const space_cat03 = document.getElementById("space_cat03");
+const space_cat04 = document.getElementById("space_cat04");
 
 
 let best = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_best, best_num, true)
-let bests = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_bests, bests_num)
-let westerns = buildCategory(domain_name+"api/v1/titles/?genre=Western&sort_by=-imdb_score", space_western, western_num)
-let sci_fis = buildCategory(domain_name+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score", space_sci_fi, sci_fi_num)
-let comedies = buildCategory(domain_name+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_comedy, comedy_num)
+let bests = buildCategory(domain_name+"api/v1/titles/?sort_by=-imdb_score", space_cat01, bests_num)
+let westerns = buildCategory(domain_name+"api/v1/titles/?genre=Western&sort_by=-imdb_score", space_cat03, western_num)
+let sci_fis = buildCategory(domain_name+"api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score", space_cat04, sci_fi_num)
+let comedies = buildCategory(domain_name+"api/v1/titles/?genre=Comedy&sort_by=-imdb_score", space_cat02, comedy_num)
 
 
 function buildCategory(url, space, nbre, first=false) {
@@ -163,17 +163,17 @@ function modalSetting(elem){
 
 // carousels
 let margins = {
-    "space_bests": 0,
-    "space_comedy": 0,
-    "space_western": 0,
-    "space_sci_fi": 0,
+    "space_cat01": 0,
+    "space_cat02": 0,
+    "space_cat03": 0,
+    "space_cat04": 0,
 }
 
 let sizes = {
-    "space_bests": bests_num,
-    "space_comedy": comedy_num,
-    "space_western": western_num,
-    "space_sci_fi": sci_fi_num,
+    "space_cat01": bests_num,
+    "space_cat02": comedy_num,
+    "space_cat03": western_num,
+    "space_cat04": sci_fi_num,
 }
 
 function slideRight(id){

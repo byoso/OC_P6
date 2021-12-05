@@ -26,7 +26,8 @@ categories = [
         "space_name": "bests",
         "nbre": 7,
         "first": false
-    }
+    },
+    
 ]
 
 for (cat of categories){

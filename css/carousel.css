@@ -14,11 +14,9 @@
 }
 
 .right {
-    margin-left: calc(-216px*4);
     transition-duration: 1s;
 }
 
 .left {
-    margin-left: 0px;
     transition-duration: 1s;
 }

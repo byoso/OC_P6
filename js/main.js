@@ -166,15 +166,37 @@ function modalSetting(elem){
 
 
 // carousels
+let margins = {
+    "space_bests": 0,
+    "space_comedy": 0,
+    "space_western": 0,
+    "space_sci_fi": 0,
+}
+
+let sizes = {
+    "space_bests": bests_num,
+    "space_comedy": comedy_num,
+    "space_western": western_num,
+    "space_sci_fi": sci_fi_num,
+}
 
 function slideRight(id){
     var space = document.getElementById(id)
-    space.classList.remove("left");
-    space.classList.add("right");
+    if (margins[id] >= -216*(sizes[id]-4)){
+        margins[id] -= 216*4;
+        space.style.marginLeft = `${margins[id]}px`
+        space.classList.remove("left");
+        space.classList.add("right");
+
+    }
 }
 
 function slideLeft(id){
     var space = document.getElementById(id)
-    space.classList.remove("right")
-    space.classList.add("left");
+    if (margins[id] <= -216*4){
+        margins[id] += 216*4;
+        space.style.marginLeft = `${margins[id]}px`
+        space.classList.remove("right")
+        space.classList.add("left");
+    }
 }

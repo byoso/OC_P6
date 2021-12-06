@@ -1,11 +1,21 @@
 
 // Initialize some variables
 let domain_name = "http://localhost:8000/"
-let margins = {}
-let sizes = {}
+
+// variables for right and left slide buttons
+let margins = {};
+let sizes = {};
+let userAgent = navigator.userAgent
+if(userAgent.includes("Firefox")){
+    film_size = 212;
+}else {
+    film_size = 216;
+}
+let fims_slide = 4;//change it to change the sliding rules
+
 
 // all you need is to define some categories
-categories = [
+const categories = [
     the_only_best = {
         "uri": "api/v1/titles/?sort_by=-imdb_score",
         "title":  "Le meilleur film",
@@ -29,9 +39,9 @@ categories = [
     },
     // sci_fi_best = {
     //     "uri": "api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score",
-    //     "title":  "Best of Sci-Fi",
+    //     "title":  "A l'honneur cette semaine",
     //     "space_name": "space_best_sci_fi",
-    //     "nbre": 1,
+    //     "nbre": 6,
     //     "honnor": true
     // },
     sci_fis = {
@@ -66,7 +76,7 @@ for (cat of categories){
 
 function buildCategory(uri, title, space_name, nbre, honnor=false) {
     let elems = []
-    let new_cat = document.createElement("div");
+    let new_cat = document.createElement("section");
     if (honnor){
         new_cat.innerHTML = `
         <h1 class="cat-title">${title}</h1>
@@ -133,15 +143,14 @@ function builder(elems, space_name){
         let dom_elem = document.createElement("div");
         dom_elem.className = "film"
         dom_elem.innerHTML = `
-        <button>
-            <img src="${elem.image_url}" alt="cover">
+        <button onclick="modalBuilder(${elem.id})">
+            <img src="${elem.image_url}" alt="img-${elem.title}">
         </button>
 
         `
         ;
         var space = document.getElementById(space_name)
         space.appendChild(dom_elem);
-        clickModal(dom_elem, elem.id)
     }
 };
 
@@ -156,21 +165,13 @@ function buildHonnor(elems, space_name){
                 <button class="play">Play</button>
             </div>
             <div class="best_box">
-                <img class="best_image" src="${elem.image_url}" alt="cover">
+                <img onclick="modalBuilder(${elem.id})" class="best_image" src="${elem.image_url}" alt="img-${elem.title}">
             </div>
         </div>
         `
         ;
     }
 }
-
-
-function clickModal(dom_elem, id){
-    // the dom element calls the modal on click
-    dom_elem.onclick = function(){
-        modalBuilder(id)
-    }
-};
 
 
 function modalBuilder(film_id){
@@ -232,10 +233,12 @@ function modalSetting(elem){
 };
 
 
+// Right and left buttons
+
 function slideRight(id){
     var space = document.getElementById(id)
-    if (margins[id] > -216*(sizes[id]-4)){
-        margins[id] -= 216*4;
+    if (margins[id] > -film_size*(sizes[id]-fims_slide)){
+        margins[id] -= film_size*fims_slide;
         space.style.marginLeft = `${margins[id]}px`
         space.classList.remove("left");
         space.classList.add("right");
@@ -245,8 +248,8 @@ function slideRight(id){
 
 function slideLeft(id){
     var space = document.getElementById(id)
-    if (margins[id] <= -216*4){
-        margins[id] += 216*4;
+    if (margins[id] <= -film_size*fims_slide){
+        margins[id] += film_size*fims_slide;
         space.style.marginLeft = `${margins[id]}px`
         space.classList.remove("right")
         space.classList.add("left");

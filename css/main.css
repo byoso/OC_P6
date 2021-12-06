@@ -1,7 +1,7 @@
 @import "carousel.css";
 
 body {
-    width: 60%;
+    width: 50%;
     min-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -46,8 +46,7 @@ button {
 
 .best_box {
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 .best_image {
@@ -84,11 +83,8 @@ button {
 
 .film {
     border: solid black 4px;
-    max-width: fit-content;
     margin: 5px 5px 5px 5px;
-    flex-direction: row;
 }
-
 
 .modal-film {
     display: flex;

@@ -3,9 +3,9 @@
 
 This is the front part of a web service that allows the user to browse fims and get some informations about it.
 
-The JS part is conceived to be easy to adapt to whatever the clients could want to change, one just have to add, remove or modify the categories like this:
+The JS part is conceived to be easy to adapt to whatever the clients could want to change. Each category is a JS object, one just have to add, remove or modify this objects like this:
 ```JS
-categories = [
+let categories = [
     westerns = {
         "uri": "api/v1/titles/?genre=Western&sort_by=-imdb_score",// api uri to get datas
         "title":  "Westerns",// category title to display

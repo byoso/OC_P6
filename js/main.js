@@ -39,9 +39,9 @@ const categories = [
     },
     // sci_fi_best = {
     //     "uri": "api/v1/titles/?genre=Sci-fi&sort_by=-imdb_score",
-    //     "title":  "A l'honneur cette semaine",
+    //     "title":  "Semaine de la SF",
     //     "space_name": "space_best_sci_fi",
-    //     "nbre": 6,
+    //     "nbre": 1,
     //     "honnor": true
     // },
     sci_fis = {
@@ -125,8 +125,11 @@ function getData(url, space_name, nbre, honnor, elems){
             buildSpace(space_name, nbre, honnor, elems)
         }
             
-    }
-)};
+    })
+    .catch(function(error){
+        console.log("error: ",error)
+    })
+};
 
 function buildSpace(space_name, nbre, honnor, elems){
     elems = elems.slice(0,nbre)
@@ -188,6 +191,9 @@ function modalBuilder(film_id){
         let dom_modal = document.getElementById("modalWindow")
         dom_modal.style.display = "block";
         modalSetting(elem)
+    })
+    .catch(function(error){
+        console.log("error: ",error)
     })
 };
 
